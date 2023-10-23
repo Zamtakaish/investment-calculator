@@ -5,7 +5,11 @@ function InputElement(props) {
     return (
         <p>
             <label className={styles['form_label']} htmlFor={props.index}>{props.label}</label>
-            <input className={styles['form_input']} type="number" id={props.index} onChange={props.onChangeInput}/>
+            <input className={styles['form_input']}
+                   type="number"
+                   id={props.index}
+                   value={props.value}
+                   onChange={props.onChangeInput}/>
         </p>
     );
 }

@@ -5,6 +5,12 @@ function InvestmentTable(props) {
 
     let interestTotal = 0;
     let contributionTotal = 0;
+    const formatter = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+    });
 
     console.log(props.data);
 
@@ -27,10 +33,10 @@ function InvestmentTable(props) {
                     return (
                         <tr>
                             <td>{tableRow.year}</td>
-                            <td>{tableRow.savingsEndOfYear}</td>
-                            <td>{tableRow.yearlyInterest}</td>
-                            <td>{interestTotal}</td>
-                            <td>{contributionTotal}</td>
+                            <td>{formatter.format(tableRow.savingsEndOfYear)}</td>
+                            <td>{formatter.format(tableRow.yearlyInterest)}</td>
+                            <td>{formatter.format(interestTotal)}</td>
+                            <td>{formatter.format(contributionTotal)}</td>
                          </tr>);
                 })
             }
