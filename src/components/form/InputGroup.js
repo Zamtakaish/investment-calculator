@@ -1,8 +1,9 @@
 import React from 'react';
+import styles from './InputGroup.module.css';
 
 function InputGroup(props) {
     return (
-        <div className="input-group">{props.children}</div>
+        <div className={styles['input-group']}>{props.children}</div>
     );
 }
 

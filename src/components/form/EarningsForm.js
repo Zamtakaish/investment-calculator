@@ -12,6 +12,7 @@ function EarningsForm(props) {
                         {index: "duration", label: "Investment Duration (years)"},]
 
     const [inputArray, setInputArray] = useState(['','','','']);
+    const [alertVisibility, setAlertVisibility] = useState(false);
 
     function updateInput(event) {
         const newState = inputArray.map( (currentInput, currentId) => {
@@ -20,11 +21,21 @@ function EarningsForm(props) {
             } else return inputArray[currentId];
         })
         setInputArray(newState);
-        console.log(newState);
+    }
+
+    function submitHandler(event) {
+        event.preventDefault();
+        if ( inputArray.every(element => element !== '')){
+            props.onFormSubmit(inputArray);
+        } else {
+            setAlertVisibility(true);
+            setTimeout(() => setAlertVisibility(false), 3000);
+        }
+
     }
 
     return (
-        <form className={styles.form}>
+        <form className={styles.form} onSubmit={submitHandler}>
             <InputGroup>
                 <InputElement index={inputsList[0].index} label={inputsList[0].label} onChangeInput={updateInput}/>
                 <InputElement index={inputsList[1].index} label={inputsList[1].label} onChangeInput={updateInput}/>
@@ -33,6 +44,7 @@ function EarningsForm(props) {
                 <InputElement index={inputsList[2].index} label={inputsList[2].label} onChangeInput={updateInput}/>
                 <InputElement index={inputsList[3].index} label={inputsList[3].label} onChangeInput={updateInput}/>
             </InputGroup>
+            <div className={styles.alert + ' ' + (alertVisibility ? styles.visible : styles.hidden)} >{'Fill empty lines!'}</div>
             <ActionButtons />
         </form>
     );

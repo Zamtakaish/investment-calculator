@@ -1,19 +1,24 @@
-import logo from './assets/investment-calculator-logo.png';
 import Header from "./components/header/Header";
 import EarningsForm from "./components/form/EarningsForm";
 import InvestmentTable from "./components/output/InvestmentTable";
+import {useState} from "react";
 
 function App() {
+
+  const [tableData, setTableData] = useState([])
+
   const calculateHandler = (userInput) => {
     // Should be triggered when form is submitted
     // You might not directly want to bind it to the submit event on the form though...
 
     const yearlyData = []; // per-year results
 
-    let currentSavings = +userInput['current-savings']; // feel free to change the shape of this input object!
-    const yearlyContribution = +userInput['yearly-contribution']; // as mentioned: feel free to change the shape...
-    const expectedReturn = +userInput['expected-return'] / 100;
-    const duration = +userInput['duration'];
+    console.log(userInput);
+
+    let currentSavings = +userInput[0]; // feel free to change the shape of this input object!
+    const yearlyContribution = +userInput[1]; // as mentioned: feel free to change the shape...
+    const expectedReturn = +userInput[2] / 100;
+    const duration = +userInput[3];
 
     // The below code calculates yearly results (total savings, interest etc)
     for (let i = 0; i < duration; i++) {
@@ -28,18 +33,23 @@ function App() {
       });
     }
 
+    setTableData(yearlyData);
+
     // do something with yearlyData ...
   };
+
+  const tableConditional = (tableData.length === 0) ?
+      <p>There is no data provided yet.</p> :
+      <InvestmentTable data={tableData}/>;
 
   return (
     <div>
       <Header/>
-      <EarningsForm/>
+      <EarningsForm onFormSubmit={calculateHandler}/>
 
       {/* Todo: Show below table conditionally (only once result data is available) */}
       {/* Show fallback text if no data is available */}
-
-      <InvestmentTable />
+      {tableConditional}
     </div>
   );
 }

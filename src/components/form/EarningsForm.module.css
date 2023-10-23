@@ -5,3 +5,25 @@
     border-radius: 4px;
     background: linear-gradient(180deg, #307e6c, #2b996d);
 }
+
+.input-group {
+    display: flex;
+    justify-content: space-evenly;
+    gap: 1.5rem;
+}
+
+.alert {
+    display: flex;
+    height: 0.5rem;
+    justify-content: center;
+    color: #d2b317;
+
+}
+.visible{
+    opacity: 1;
+    transition: opacity 0.25s ease-out;
+}
+.hidden{
+    opacity: 0;
+    transition: opacity 0.25s ease-out;
+}
